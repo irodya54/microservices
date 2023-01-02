@@ -1,0 +1,19 @@
+package com.example.test_micro_user.model.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Objects;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class UserReadDto {
+    private Long id;
+    private String username;
+    private String name;
+
+}

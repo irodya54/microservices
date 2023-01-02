@@ -1,0 +1,44 @@
+version: '3.9'
+services:
+  micro-service:
+    container_name: micro-service
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+      spring.datasource.url: jdbc:postgresql://postgres:5432/postgres
+    image: micro-user:latest
+    ports:
+      - '9002:9002'
+
+  eureka-server:
+    container_name: eureka-server
+    image: eureka-server:latest
+    ports:
+      - '8761:8761'
+
+
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+
+  prometheus:
+    image: 'prom/prometheus'
+    ports:
+      - '9090:9090'
+    command: '--config.file=/etc/prometheus/config.yml'
+    volumes:
+      - './prometheus.yml:/etc/prometheus/config.yml'
+
+  grafana:
+    image: 'grafana/grafana'
+    ports:
+      - '3000:3000'
+
+
+
+

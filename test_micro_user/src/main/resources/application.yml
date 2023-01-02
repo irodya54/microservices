@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: user-micro-service
+  datasource:
+    password: postgres
+    username: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+      registerWithEureka: true
+      fetchRegistry: true
+  instance:
+    prefer-ip-address: true
+server:
+  port: 9002
+
+
+
+
+management:
+  health:
+    db:
+      enabled: true
+    diskspace:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
+logging:
+  file:
+    path: /logs/
+    name: log.txt
+  level:
+    com.example.test_micro_user: warn
+
