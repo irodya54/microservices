@@ -13,6 +13,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.client.RestTemplate;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -34,10 +35,14 @@ public abstract class IntegrationTestBase {
             .withInitScript("Data.sql");
     @Autowired
     protected MockMvc mockMvc;
-//    @Autowired
-//    protected JdbcTemplate template;
-//    @Autowired
-//    protected UserServiceImpl service;
+
+    @Autowired
+    protected JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    protected RestTemplate restTemplate;
+    @Autowired
+    protected UserServiceImpl service;
     @Autowired
     protected UserMapper userMapper;
 

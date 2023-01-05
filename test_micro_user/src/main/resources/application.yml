@@ -8,7 +8,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
 
 eureka:
   client:
@@ -42,8 +42,8 @@ management:
       application: ${spring.application.name}
 logging:
   file:
-    path: /logs/
-    name: log.txt
+    path: './logs/${spring.application.name}'
+    name: ${logging.file.path}/my-app.log
   level:
     com.example.test_micro_user: warn
 

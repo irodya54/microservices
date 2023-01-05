@@ -11,6 +11,8 @@ import com.example.test_micro_user.service.UserServiceImpl;
 import com.example.test_micro_user.util.CarMapper;
 import com.example.test_micro_user.util.UserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +40,13 @@ public class UserRestController {
         this.carMapper = carMapper;
     }
 
+
     @GetMapping("/")
-    public List<UserReadDto> getAllUsers() {
-        return service.findAllUsers().stream().map(userMapper::userToUserReadDto).collect(Collectors.toList());
+    public Page<UserReadDto> getAllUsers(
+            @RequestParam("offset") Integer offset,
+            @RequestParam("limit") Integer limit
+    ) {
+        return service.findAllUsers(PageRequest.of(offset, limit)).map(userMapper::userToUserReadDto);
     }
 
     @GetMapping("/{id}")
@@ -55,11 +61,11 @@ public class UserRestController {
         service.deleteUserById(id);
         Optional<User> userById = service.findUserById(id);
         return !userById.isPresent() ? new ResponseEntity<>(HttpStatus.OK)
-                                    : new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                : new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/")
-    public ResponseEntity<User> createUser (@RequestBody UserCreateDto userCreateDto) {
+    public ResponseEntity<User> createUser(@RequestBody UserCreateDto userCreateDto) {
         User user = userMapper.userCreatDtoToUser(userCreateDto);
         service.createUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -73,7 +79,10 @@ public class UserRestController {
     }
 
     @GetMapping("/{username}/cars")
-    public ResponseEntity<List<CarReadDto>> getCars (@PathVariable String username) {
-        return ResponseEntity.ok(carService.getCarsByUserName(username).stream().map(carMapper::carToCarReadDto).collect(Collectors.toList()));
+    public ResponseEntity<List<CarReadDto>> getCars(@PathVariable String username) {
+        return ResponseEntity.ok(carService.getCarsByUserName(username)
+                .stream()
+                .map(carMapper::carToCarReadDto)
+                .collect(Collectors.toList()));
     }
 }

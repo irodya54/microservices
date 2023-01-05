@@ -4,8 +4,10 @@ services:
     container_name: micro-service
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
-      spring.datasource.url: jdbc:postgresql://postgres:5432/postgres
-    image: micro-user:latest
+      spring.datasource.url: jdbc:postgresql://postgres/
+    image: micro-user
+    networks:
+      - nw
     ports:
       - '9002:9002'
 
@@ -14,6 +16,18 @@ services:
     image: eureka-server:latest
     ports:
       - '8761:8761'
+    networks:
+      - nw
+
+  api-getaway:
+    container_name: api-getaway
+    image: api-getaway:latest
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+    ports:
+      - '8080:8080'
+    networks:
+      - nw
 
 
   postgres:
@@ -21,6 +35,8 @@ services:
     image: postgres:latest
     ports:
       - '5432:5432'
+    networks:
+      - nw
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -28,6 +44,8 @@ services:
 
   prometheus:
     image: 'prom/prometheus'
+    networks:
+      - nw
     ports:
       - '9090:9090'
     command: '--config.file=/etc/prometheus/config.yml'
@@ -36,8 +54,13 @@ services:
 
   grafana:
     image: 'grafana/grafana'
+    networks:
+      - nw
     ports:
       - '3000:3000'
+
+networks:
+  nw:
 
 
 

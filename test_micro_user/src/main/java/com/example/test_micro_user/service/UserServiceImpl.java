@@ -4,6 +4,8 @@ import com.example.test_micro_user.model.entity.Car;
 import com.example.test_micro_user.model.entity.User;
 import com.example.test_micro_user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +26,8 @@ public class UserServiceImpl implements UserService {
         repository.deleteAll();
     }
 
-    public List<User> findAllUsers() {
-        return repository.findAll();
+    public Page<User> findAllUsers(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Optional<User> findUserById(Long id) {
