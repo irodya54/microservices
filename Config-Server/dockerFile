@@ -1,5 +1,5 @@
 FROM openjdk:8
 WORKDIR /server
-COPY ./build/libs/Config-Server-0.0.1-SNAPSHOT-plain.jar /server/micro-config-server.jar
-EXPOSE 9002
+COPY ./build/libs/Config-Server-0.0.1-SNAPSHOT.jar /server/micro-config-server.jar
+EXPOSE 8081
 CMD ["java", "-jar", "micro-config-server.jar"]
