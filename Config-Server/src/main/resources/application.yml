@@ -8,8 +8,9 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/irodya54/microservices/tree/master/Config-Server
-          search-paths: "/{application}/{profile}"
+          uri: https://github.com/irodya54/microservices
+          search-paths: "/ms-properties/{application}/{profile}"
+          default-label: master
 
 
 eureka:

@@ -20,30 +20,30 @@ eureka:
     prefer-ip-address: true
 server:
   port: 9002
-
-
-
-
-management:
-  health:
-    db:
-      enabled: true
-    diskspace:
-      enabled: true
-  endpoint:
-    health:
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  metrics:
-    tags:
-      application: ${spring.application.name}
-logging:
-  file:
-    path: './logs/${spring.application.name}'
-    name: ${logging.file.path}/my-app.log
-  level:
-    com.example.test_micro_user: warn
+#
+#
+#
+#
+#management:
+#  health:
+#    db:
+#      enabled: true
+#    diskspace:
+#      enabled: true
+#  endpoint:
+#    health:
+#      show-details: always
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  metrics:
+#    tags:
+#      application: ${spring.application.name}
+#logging:
+#  file:
+#    path: './logs/${spring.application.name}'
+#    name: ${logging.file.path}/my-app.log
+#  level:
+#    com.example.test_micro_user: warn
 
