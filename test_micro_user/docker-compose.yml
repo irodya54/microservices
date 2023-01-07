@@ -20,7 +20,7 @@ services:
     container_name: car-sale
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
-      spring.datasource.url: jdbc:postgresql://postgres-car/
+      spring.datasource.url: jdbc:postgresql://postgres-car/postgres
       spring.cloud.config.uri: http://config-server:8081
     image: car-sale:latest
     networks:
