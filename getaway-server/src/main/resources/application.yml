@@ -15,6 +15,7 @@ spring:
   cloud:
     gateway:
       routes:
+      - id: CAR-SALE
       - id: USER-MICRO-SERVICE
         uri: lb://USER-MICRO-SERVICE
         predicates:

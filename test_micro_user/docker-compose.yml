@@ -4,12 +4,33 @@ services:
     container_name: micro-service
     environment:
       eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
-      spring.datasource.url: jdbc:postgresql://postgres/
+      spring.datasource.url: jdbc:postgresql://postgres-user/
+      spring.cloud.config.uri: http://config-server:8081
     image: micro-user
     networks:
       - nw
     ports:
       - '9002:9002'
+    depends_on:
+      - postgres-user
+      - eureka-server
+      - config-server
+
+  car-sale:
+    container_name: car-sale
+    environment:
+      eureka.client.serviceUrl.defaultZone: http://eureka-server:8761/eureka
+      spring.datasource.url: jdbc:postgresql://postgres-car/
+      spring.cloud.config.uri: http://config-server:8081
+    image: car-sale:latest
+    networks:
+      - nw
+    ports:
+      - '9003:9003'
+    depends_on:
+      - postgres-car
+      - eureka-server
+      - config-server
 
   eureka-server:
     container_name: eureka-server
@@ -40,11 +61,23 @@ services:
       - nw
 
 
-  postgres:
-    container_name: postgres
+  postgres-user:
+    container_name: postgres-user
     image: postgres:latest
     ports:
       - '5432:5432'
+    networks:
+      - nw
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+
+  postgres-car:
+    container_name: postgres-car
+    image: postgres:latest
+    ports:
+      - '5433:5432'
     networks:
       - nw
     environment:

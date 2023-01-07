@@ -8,7 +8,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
 
 eureka:
   client:
@@ -20,30 +20,4 @@ eureka:
     prefer-ip-address: true
 server:
   port: 9002
-#
-#
-#
-#
-#management:
-#  health:
-#    db:
-#      enabled: true
-#    diskspace:
-#      enabled: true
-#  endpoint:
-#    health:
-#      show-details: always
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"
-#  metrics:
-#    tags:
-#      application: ${spring.application.name}
-#logging:
-#  file:
-#    path: './logs/${spring.application.name}'
-#    name: ${logging.file.path}/my-app.log
-#  level:
-#    com.example.test_micro_user: warn
 
